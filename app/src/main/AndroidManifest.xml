@@ -4,6 +4,8 @@
     package="io.appium.settings">
 
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -55,6 +57,14 @@
             android:noHistory="true"
             android:excludeFromRecents="true">
         </activity>
+        <activity
+            android:name=".CaptureActivity"
+            android:label="Capture Activity"
+            android:exported="true"
+            android:launchMode="singleInstance"
+            android:noHistory="true"
+        >
+        </activity>
 
         <service
             android:name=".LocationService"
@@ -92,6 +102,11 @@
         <service android:name=".ForegroundService"
             android:enabled="true"
             android:exported="true" />
+        <service android:name=".ProjectionService"
+                 android:enabled="true"
+                 android:exported="true"
+                 android:foregroundServiceType="mediaProjection"
+                 tools:targetApi="29"/>
 
         <receiver android:name=".receivers.WiFiConnectionSettingReceiver"
             android:exported="true"
