@@ -1,3 +1,19 @@
+/*
+  Copyright 2012-present Appium Committers
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
 package io.appium.settings.helpers;
 
 import android.app.Notification;
@@ -16,7 +32,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class RecordingHelpers {
     public static Notification getNotification(Context context) {
@@ -59,8 +74,7 @@ public class RecordingHelpers {
         return uids;
     }
 
-    public static File makeFile(final String ext) {
-        return new File(Environment.getExternalStorageDirectory(),
-                String.format("%s.%s", UUID.randomUUID().toString(), ext));
+    public static File makeFile(final String name) {
+        return new File(Environment.getExternalStorageDirectory(), name);
     }
 }

@@ -1,3 +1,19 @@
+/*
+  Copyright 2012-present Appium Committers
+  <p>
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+  <p>
+  http://www.apache.org/licenses/LICENSE-2.0
+  <p>
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+ */
+
 package io.appium.settings;
 
 import android.app.Service;
@@ -35,14 +51,7 @@ public class ProjectionService extends Service {
 
     private int mBufferSizeInBytes;
     private AudioRecord mRecorder;
-
     private boolean mIsRecording;
-
-    public interface ProjectionStateListener {
-        void onStateChanged(boolean isRecording);
-    }
-
-    private ProjectionStateListener mListener;
 
     @Override
     public void onCreate() {
@@ -73,14 +82,6 @@ public class ProjectionService extends Service {
         }
     }
 
-    public void setListener(ProjectionStateListener listener) {
-        this.mListener = listener;
-    }
-
-    public boolean isRecording() {
-        return mIsRecording;
-    }
-
     public void startRecord(MediaProjection mediaProjection, File dstFile, List<String> dstPackageNames) {
         stopRecord();
         mBufferSizeInBytes = AudioRecord.getMinBufferSize(SAMPLE_RATE, CHANNEL_CONFIG, AUDIO_FORMAT);
@@ -92,7 +93,6 @@ public class ProjectionService extends Service {
         mRecorder.startRecording();
         mIsRecording = true;
         startBufferedWrite(dstFile);
-        if (null != mListener) mListener.onStateChanged(mIsRecording);
     }
 
     private void startBufferedWrite(final File file) {
@@ -120,7 +120,6 @@ public class ProjectionService extends Service {
             mRecorder.stop();
             mRecorder = null;
         }
-        if (null != mListener) mListener.onStateChanged(false);
     }
 
     private AudioRecord createAudioRecorder(MediaProjection mediaProjection, List<String> dstPackageNames) {
